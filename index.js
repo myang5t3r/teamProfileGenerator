@@ -40,43 +40,43 @@ const employeeRoles = {
     engineer: [{    
         type: 'input',
         name: 'name',
-        message: 'What is your name?',
+        message: 'What is name of this engineer?',
     },
     {
         type: 'input',
         name: 'employeeId',
-        message: 'Please enter your employeeId',
+        message: 'Please enter the engineers employeeId',
     },
     {
         type: 'input',
         name: 'email',
-        message: 'Please enter your email',
+        message: 'Please enter the engineers email',
     },
     {
         type: 'input',
         name: 'gitHubname',
-        message: 'Please enter your GitHub username'
+        message: 'Please enter the engineers GitHub username'
     }
     ],
     intern: [{    
         type: 'input',
         name: 'name',
-        message: 'What is your name?',
+        message: 'What is the name of this intern?',
     },
     {
         type: 'input',
         name: 'employeeId',
-        message: 'Please enter your employeeId',
+        message: 'Please enter the interns employeeId',
     },
     {
         type: 'input',
         name: 'email',
-        message: 'Please enter your email',
+        message: 'Please enter the interns email',
     },
     {
         type: 'input',
         name: 'school',
-        message: 'Please enter your school name'
+        message: 'Please enter the interns school name'
     }
     ]
 }
@@ -88,7 +88,7 @@ const managerQuestion = {
             type: 'list',
             name: 'type',
             choices: ['Engineer','Intern'],
-            message: 'Please choose an employee type'
+            message: 'Please choose an employee type you would like to add'
         }
     ],
     continue: [
@@ -100,36 +100,81 @@ const managerQuestion = {
     ]
 };
 
+// Functions to call individual prompts
 
-// When I start the application I'm prompted with the team managers prompts
-function managerPrompt(){
-    inquirer.prompt(employeeRoles.manager)
-    .then(answers => {
-        const manager = new Manager(answers.name, answers.employeeId, answers.email, answers.officeNumber )
-        team.push(manager);
-        console.log(team)
-    });
+async function managerPrompt(){
+    console.log('\u001b[31m Hello Manager, lets begin with creating your team!')
+    await inquirer.prompt(employeeRoles.manager)
+            .then(answers => {
+            const manager = new Manager(answers.name, answers.employeeId, answers.email, answers.officeNumber )
+            team.push(manager);
+            // console.log(team)
+        });
 }
 
-function engineerPrompt(){
-    inquirer.prompt(employeeRoles.engineer)
-    .then(answers => {
-        const engineer = new Engineer(answers.name, answers.employeeId, answers.email, answers.github)
-        team.push(engineer);
-        console.log(team)
-    })
-}
-function internPrompt(){
-    inquirer.prompt(employeeRoles.intern)
-    .then(answers => {
-        const intern = new Intern(answers.name, answers.employeeId, answers.email, answers.github)
-        team.push(intern);
-        console.log(team)
-    })
+async function engineerPrompt(){
+    await inquirer.prompt(employeeRoles.engineer)
+            .then(answers => {
+                const engineer = new Engineer(answers.name, answers.employeeId, answers.email, answers.gitHubname)
+                team.push(engineer);
+                // console.log(team)
+            })
 }
 
-// managerPrompt();
-// engineerPrompt();
+async function internPrompt(){
+    await inquirer.prompt(employeeRoles.intern)
+            .then(answers => {
+                const intern = new Intern(answers.name, answers.employeeId, answers.email, answers.school)
+                team.push(intern);
+                // console.log(team)
+            })
+}
 
-inquirer.prompt(managerQuestion.continue)
-    .then(answers=> console.log(answers))
+async function managerContinue() {
+    let ret;
+    await inquirer.prompt(managerQuestion.continue)
+            .then(answers => {
+                // console.log(answers)
+                ret = answers;
+            })
+    return ret;        
+}
+
+async function managerEmployeetype() {
+    let ret = ""
+    await inquirer.prompt(managerQuestion.employeeType)
+            .then(answers => {
+                console.log(answers)
+                ret = answers
+            })
+    return ret;
+}
+
+
+async function init(){
+    // When I start the application I'm prompted with the team managers prompts
+    await managerPrompt();
+    
+    // Lets use while loop to ask manager if he has more employees
+    let cont = true;
+    while(cont === true){
+        // Then ask question for which type of employee you want the manager to add
+        let data1 = await managerEmployeetype()
+        // Add condition for employee type to call correct prompt
+        if (data1.type === "Engineer"){
+            console.log('You Selected Engineer')
+            await engineerPrompt();
+        } else{
+            console.log('You Selected Intern')
+            await internPrompt();
+        }
+        console.log(team)
+        // Now ask manage if he would like to add more employees
+        let data2 = await managerContinue()
+        console.log(data2.moreEmployees)
+        cont = data2.moreEmployees;
+    }
+
+}
+
+init()
