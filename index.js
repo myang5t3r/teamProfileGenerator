@@ -5,14 +5,17 @@ const jest = require('jest');
 // import fs because we will have to write data to html
 const fs = require('fs')
 
-// import classes that the employee object so we can pass it to html creator
+// import classes from the employee object so we can pass it to html creator
 const Employee = require('./lib/employee.js'); // I don't think I need this here
 const Manager = require('./lib/manager.js');
 const Engineer = require('./lib/engineer.js');
 const Intern = require('./lib/intern.js');
+const GenerateHTML = require('./src/generateHTML');
 
 // Create a array to store employee data, this array will then be used to create the html 
 const team = [];
+
+///////////////////             Questions from Inquirer         ////////////////////
 
 // Create questions for each type of employee to be called during prompt
 const employeeRoles = {
@@ -100,7 +103,7 @@ const managerQuestion = {
     ]
 };
 
-// Functions to call individual prompts
+///////////////////             Functions individual prompts            ///////////////////
 
 async function managerPrompt(){
     console.log('\u001b[31m Hello Manager, lets begin with creating your team!')
@@ -151,6 +154,15 @@ async function managerEmployeetype() {
 }
 
 
+//////////////////              Function to write html              //////////////
+function writeToFile(fileName, data) {
+    console.log(fileName)
+    fs.writeFile(fileName, data, (e) =>
+      e ?console.error(e) : console.log('HTML file Created') )
+  }
+
+///////////////////             Initialization function             /////////////////////
+
 async function init(){
     // When I start the application I'm prompted with the team managers prompts
     await managerPrompt();
@@ -168,13 +180,18 @@ async function init(){
             console.log('You Selected Intern')
             await internPrompt();
         }
-        console.log(team)
+        // console.log(team)
         // Now ask manage if he would like to add more employees
         let data2 = await managerContinue()
-        console.log(data2.moreEmployees)
+        // Set boolean if true loop again, if false exit
         cont = data2.moreEmployees;
     }
 
+    // Now that employees are created and stored in a object lets pass it to a function that creates the html!!
+    const createHTML = GenerateHTML(team);
+    // write file to location
+    // writeToFile('./dist/index.html',createHTML)
 }
 
+//////////////////////////      Initialization              /////////////////////////
 init()
