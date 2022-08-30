@@ -15,7 +15,7 @@
   [![](https://img.shields.io/badge/license-GNU%20GPLv3-blue)](https://choosealicense.com/licenses/gpl-2.0/)
   ___
   ## Description
-  This application allows the user to create a team profile that is generated on a webpage. Node.js and the inquirer library is used for the cli. After the team profile is generated, the user can quickly access their teams information such as email and Github profiles. The application scales to as many profiles as needed and uses the Bootstrap api to compensate for mobile and desktop displays. Object oriented programs is used in the modularization of the code. Three child classes and one parent class was used to generate the different profile types.
+  This application creates a team profile that is generated to a webpage. Node.js and the inquirer library is used for the cli. After the team profile is generated, the user can quickly access their teams information such as email and Github profiles. The application scales to as many profiles as needed and uses the Bootstrap api to compensate for mobile and desktop displays. Object oriented programs is used in the modularization of the code. Three child classes and one parent class was used to generate the different profile types.
   ___
   ## Installation
   Node.js must be installed to run this application. After installation of Node.js, clone the repository. In a terminal in the root directory run npm i to install dependencies. 
