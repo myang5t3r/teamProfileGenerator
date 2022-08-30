@@ -190,7 +190,7 @@ async function init(){
     // Now that employees are created and stored in a object lets pass it to a function that creates the html!!
     const createHTML = GenerateHTML(team);
     // write file to location
-    // writeToFile('./dist/index.html',createHTML)
+    writeToFile('./dist/index.html',createHTML)
 }
 
 //////////////////////////      Initialization              /////////////////////////

@@ -119,23 +119,10 @@ function generateHTML(data) {
     
     // Use spread operator to put cards into completeHtml
     const completeHtml = [Html[0], ...cardArray, Html[1]].join('');
-    console.log(completeHtml);
-
+    // console.log(completeHtml);
+    return completeHtml;
 
 }
-
-
-//     )}
-//     console.log(typeof data[0])
-//     console.log(data[0])
-//     console.log(data[0].hasOwnProperty('officeNumber'))
-//     // console.log(data[0].key)
-//     // console.log(data[0].email)
-//     //     let htmlObject = `
-//     // `
-// //     // Return htmlobject so it can be saved
-// //     return htmlObject;
-//   }
   
 module.exports = generateHTML;
   
