@@ -66,7 +66,7 @@ function init() {
   inquirer.prompt(questions).then((answers) => {
     // Pass answers object to generateMarkdown file to populate
     const generatedReadMe = generateMd(answers)
-    writeToFile('../../README.md', generatedReadMe )
+    writeToFile('../README.md', generatedReadMe )
   });
 }
 
