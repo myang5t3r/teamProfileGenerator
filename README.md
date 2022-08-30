@@ -27,7 +27,7 @@
   Contributions are welcome. Clone the repository and customize to your liking. Request a pull request and a review can be started.
   ___
   ## Tests
-  To test the application, in the root directory run npm test. This will launch the Jest library to test the 4 main classes of the repository. See test cases in __test__ directory. 
+  To test the application, in the root directory run npm run test. This will launch the Jest library to test the 4 main classes of the repository. See test cases in __test__ directory. 
   ___
   ## Questions
   For more information and questions please email me @ matthew.yang@hunterdoulas.com 
