@@ -1,5 +1,6 @@
 // This script receives a JSON object with that data create and HTML document and pass, it back to the index.js script.
-const Manager = require("../lib/manager")
+//TODO: Remove and test
+const Manager = require("../lib/manager") 
 
 // Create empty array to store strings for each card of html
 const cardArray = [];
