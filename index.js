@@ -1,7 +1,5 @@
 // import inquirer for cli prompts
 const inquirer = require('inquirer');
-// import jest for test requirement
-const jest = require('jest');
 // import fs because we will have to write data to html
 const fs = require('fs')
 
@@ -147,12 +145,11 @@ async function managerEmployeetype() {
     let ret = ""
     await inquirer.prompt(managerQuestion.employeeType)
             .then(answers => {
-                console.log(answers)
+                // console.log(answers)
                 ret = answers
             })
     return ret;
 }
-
 
 //////////////////              Function to write html              //////////////
 function writeToFile(fileName, data) {
